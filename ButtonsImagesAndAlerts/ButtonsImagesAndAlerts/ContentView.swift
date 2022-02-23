@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingAlert = false
+    
     var body: some View {
         VStack(spacing: 20) {
             Button("Add selection", action: addSelection)
@@ -34,16 +36,32 @@ struct ContentView: View {
             }
             
             Button {
-                print("Edit button was tapped")
+                editSelection()
             } label: {
                 Label("Edit", systemImage: "pencil")
                     .tint(.indigo)
+            }
+            
+            Button("Show alert") {
+                showingAlert = true
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.orange)
+            .alert("Important Message", isPresented: $showingAlert) {
+                Button("Accept", role: .cancel) { }
+                Button("Cancel", role: .destructive) { }
+            } message: {
+                Text("Please accept our terms & conditions.")
             }
         }
     }
     
     func addSelection() {
         print("Adding selection...")
+    }
+    
+    func editSelection() {
+        print("Editing selection...")
     }
     
     func executeDelete() {
